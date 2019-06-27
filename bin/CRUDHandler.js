@@ -12,7 +12,7 @@ class CRUDHandler{
         schemaKeys.forEach((key) =>{newDocument[key]=data[key]})
         
         this.model.create(newDocument)
-            .then (dbres => console.log ("this seems to be working and the result is " + dbres))
+            .then (dbres => console.log ("creating document seems to be working"))
             .catch (err => console.log("this is not working :", err))     
     }
 

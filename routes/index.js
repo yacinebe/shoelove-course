@@ -6,7 +6,9 @@ const bcryptSalt  = 10;
 const salt =bcrypt.genSaltSync (bcryptSalt);
 const handler=require("../bin/CRUDHandler.js");
 const productModel=require("../models/Product.js")
+const tagModel=require("../models/Tag.js")
 const productHandler=new handler(productModel);
+const tagHandler = new handler (tagModel);
 
 require("../config/db_session.js")
 var logInStatus;
@@ -17,9 +19,16 @@ router.get(["/", "/home"], (req, res) => {
 });
 
 router.get("/collection", (req, res) => {
-  allProducts=productHandler.getAll(product=> res.render("products", {product, logInStatus}))
-  //res.render("products", {logInStatus});
-});
+  
+  tagHandler.getAll ( tag => 
+    
+    productHandler.getAll(
+      
+      product=> res.render("products", {product, tag, logInStatus}))
+      
+      );
+  
+  });
 
 cat=["kids", "women", "men"]
 cat.forEach(c =>{
@@ -54,7 +63,7 @@ router.post("/signup", (req, res) => {
       console.log ("I am dealing with a new user");
       const hashpwd=bcrypt.hashSync (password, salt);
       userObject = {firstname, lastname, email, password:hashpwd};
-      console.log (userObject);
+      //console.log (userObject);
       userModel.create (userObject)
         .then ( () => {res.redirect ('/'); console.log ("Account created")})
         .catch (err=> console.log ("sign up did not work"))
@@ -72,7 +81,7 @@ router.get("/login", (req, res) => {
 
 router.post("/login", (req, res, next) =>{
   const { firstname, lastname, email, password} = req.body;
-  console.log(req.body)
+  //console.log(req.body)
   userModel.findOne({email})
     .then( user =>{
       console.log(user)

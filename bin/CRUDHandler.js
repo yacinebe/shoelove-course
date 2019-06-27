@@ -3,8 +3,7 @@ class CRUDHandler{
         this.model=model;
     }
 
-    createOne(data){
-        
+    createOne(data){      
         const schema=this.model["schema"]["obj"]
         const schemaKeys=Object.keys(schema)
         console.log("------------------------------")
@@ -16,7 +15,12 @@ class CRUDHandler{
             .catch (err => console.log("this is not working :", err))     
     }
 
-    getOne(){}
+    getOne(data_id, clbk){
+        this.model.findOne(data_id)
+            .then(res => clbk(res))
+            .catch(err => console.log(err))
+
+    }
 
     getAll( clbk ){
         this.model.find({})
@@ -28,14 +32,28 @@ class CRUDHandler{
         const filterObject={}
         filterObject[field]=value
         this.model.find(filterObject)
-            .then( res => {console.log(res); clbk(res)})
+            .then( res => { clbk(res)})
             .catch(err => console.log(err))
     }
 
-    updateOne(){}
+    updateOne(filterObject, data, clbk){
 
-    deleteOne(){}
+        console.log( "data ---", data)
+        console.log("filterObject ---", filterObject)
+        this.model.findByIdAndUpdate(filterObject, data)
+            .then(res => {console.log(res); clbk(res)})
+            .catch(err => console.log(err))
+    }
+
+
+    deleteOne(data, clbk){
+        this.model.findByIdandRemove(data.id)
+            .then(res => {clbk(res)})
+            .catch(err => console.log(err))
+    }
             
 }
+
+
 
 module.exports=CRUDHandler;

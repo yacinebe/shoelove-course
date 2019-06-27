@@ -60,7 +60,7 @@ const testProduct={
   category : "kids",
   id_tags: "5d148b66540e3c1ef816f168"
 }
-CRUDHandlerProduct.createOne(testProduct)
+//CRUDHandlerProduct.createOne(testProduct)
 
 //USER
 CRUDHandlerUser= new handler(userModel)

@@ -62,6 +62,12 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+
+router.post("/login", (req, res, next) =>{
+  console.log(req.body)
+})
+
+
 router.get("/one-product", (req, res) => {
   res.render("one_product");
 });

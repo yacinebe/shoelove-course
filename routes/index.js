@@ -4,8 +4,11 @@ const userModel = require ('../models/User.js');
 const bcrypt  = require ("bcrypt");
 const bcryptSalt  = 10;
 const salt =bcrypt.genSaltSync (bcryptSalt);
-
-
+//const session    = require("express-session");
+//const mongoose=require("mongoose")
+//const MongoStore = require("connect-mongo")(session);
+require("../config/db_session.js")
+var logInStatus;
 
 
 router.get(["/", "/home"], (req, res) => {
@@ -13,7 +16,7 @@ router.get(["/", "/home"], (req, res) => {
 });
 
 router.get(["/collection", "/kids", "/women", "/men"], (req, res) => {
-  res.render("products");
+  res.render("products", {logInStatus});
 });
 
 router.get("/signup", (req, res) => {
@@ -37,25 +40,18 @@ router.post("/signup", (req, res) => {
      else 
 
      {
-
       console.log ("I am dealing with a new user");
-
       const hashpwd=bcrypt.hashSync (password, salt);
-
-
       userObject = {firstname, lastname, email, password:hashpwd};
       console.log (userObject);
       userModel.create (userObject)
         .then ( () => {res.redirect ('/'); console.log ("Account created")})
         .catch (err=> console.log ("sign up did not work"))
-
-
      }
    
 })  .catch (err => "username query does not work");
 
 });
-
 
 
 router.get("/login", (req, res) => {
@@ -64,7 +60,36 @@ router.get("/login", (req, res) => {
 
 
 router.post("/login", (req, res, next) =>{
+  const { firstname, lastname, email, password} = req.body;
   console.log(req.body)
+  userModel.findOne({email})
+    .then( user =>{
+      console.log(user)
+      if (!user){
+        logInStatus=false
+        console.log("no user ")
+        res.render('login', {errorMessage: "User doesn't exist. Please, try again or create an account.", logInStatus})}
+        else {
+            if(bcrypt.compareSync(password, user.password)){
+              logInStatus=true;
+              req.session.currentUser=user; 
+              res.render("index", {logInStatus})
+              //})
+            }
+            else{
+              console.log("error pwd")
+              res.render('login', {errorMessage: "Incorrect password !"})
+              }
+      }     
+  })
+})
+
+router.get("/logout", (req, res, next) =>{
+  req.session.destroy((err) => {
+    console.log("logout")
+    logInStatus=false
+    res.render("login", {logInStatus} );
+})
 })
 
 

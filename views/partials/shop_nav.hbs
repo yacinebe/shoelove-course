@@ -34,9 +34,16 @@
         </ul>
       </div>
       <div class="flexed-item nav-end">
-        <a  href="/login" id="nav_login" class="button-ternary flexed-item nav-end-item">
-          <span class="btn-text">Log in </span>
-        </a>
+          {{#if logInStatus}}
+            <a  href="/logout" id="nav_login" class="button-ternary flexed-item nav-end-item">
+              <span class="btn-text login"> Log Out </span>
+            </a>
+
+        {{else}}
+            <a  href="/login" id="nav_login" class="button-ternary flexed-item nav-end-item">
+              <span class="btn-text login"> Log In </span>
+            </a>
+        {{/if}}
 
           <a  href="/signup" id="nav_login" class="button-ternary flexed-item nav-end-item">
           <span class="btn-text">Sign up   </span>

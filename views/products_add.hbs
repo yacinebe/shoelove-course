@@ -1,53 +1,68 @@
 <div class="big-container product-manage-wrapper flexed-item">
-  <form action="POST" class="add-product-form">
+  
+  <form method="POST" action="/prod-add" class="add-product-form">
+
     <h3 class="form-title">Add Sneackers to the collection</h3>
+
     <div class="form-item-wrapper flexed-item">
-      <label for="sneacker-name" class="label-name label">Model name</label>
-      <input type="text" class="input-text input" placeholder="Nike Air Max 90">
+      <label for="name" class="label-name label">Model name</label>
+      <input type="text" name="name" class="input-text input" placeholder="Nike Air Max 90" value="nike">
     </div>
+
     <div class="form-item-wrapper flexed-item">
-      <label for="sneacker-ref" class="label-ref label">Réf.</label>
-      <input type="text" class="input-text input" placeholder="ex: NV23498">
+      <label for="ref" class="label-ref label">Réf.</label>
+      <input type="text" name="ref" class="input-text input" placeholder="ex: NV23498" value="1">
     </div>
+
     <div class="form-item-wrapper flexed-item">
-      <label for="sneacker-size" class="label-ref label">Size</label>
-      <input type="number" class="input-text input" placeholder="ex: 37">
+      <label for="sizes" class="label-ref label">Size</label>
+      <input type="number" name="sizes" class="input-text input" placeholder="ex: 37" value="37">
     </div>
+
     <div class="form-item-wrapper flexed-item">
-      <label for="sneacker-descr" class="label-descr label">Description</label>
-      <input type="text" class="input-text input" placeholder="The better sneakers to run">
+      <label for="description" class="label-descr label">Description</label>
+      <input type="text" name="description" class="input-text input" placeholder="The better sneakers to run" value="tamere">
     </div>
+
     <div class="form-item-wrapper flexed-item">
-      <label for="sneacker-price" class="label-price label">Price</label>
-      <input type="number" class="sneacker-price input" min="1">
+      <label for="price" class="label-price label">Price</label>
+      <input type="number" name="price" class="sneacker-price input" min="1" value=100>
     </div>
+
     <div class="form-item-wrapper flexed-item">
-      <label for="sneacker-main-cat" class="label-main-cat label">Main category</label>
-      <select name="main-category" id="main_category" class="select">
+      <label for="category" class="label-main-cat label">Main category</label>
+      <select name="category"  id="main_category" class="select" >
         <option value="">Choose main Category...</option>
-        <option value="">Men</option>
-        <option value="">Women</option>
-        <option value="">Kids</option>
+        <option value="men">Men</option>
+        <option value="women">Women</option>
+        <option value="kids">Kids</option>
       </select>
     </div>
+
+  <!--
     <div class="form-item-wrapper flexed-item">
-      <label class="label">Tags</label>
-      <select name="sneacker-secondary-cat" id="secondary_category" class="select">
-        <option value="">Choose Secondary Category...</option>
-        <option value="">Friendly</option>
-        <option value="">Urban style</option>
-        <option value="">Dope</option>
+      <label for="id_tags" class="label">Tags</label>
+      <select name="id_tags" id="secondary_category" class="select" value="vintage">
+        <option value="">Choose a tag...</option>
+        <option value="">Converse</option>
+        <option value="">Athetic</option>
+        <option value="">Coolandtrendy</option>
+        <option value="">Vintage</option>
       </select>
     </div>
-    <button class="button-primary add-sneacker-btn">Add to collection</button>
+  -->
+
+   <button class="button-primary add-sneacker-btn">Add to collection</button>
   </form>
 
-  <form action="POST" class="add-category-form">
-    <h3 class="form-title">Add tags</h3>
+
+  <form method="POST" action="/" class="add-category-form">
+    <h3 class="form-title">Add a tag</h3>
     <div class="form-item-wrapper flexed-item">
       <label for="category-name" class="category-name label">Sneaker tag</label>
       <input type="text" class="input" placeholder="ex: Gangsta">
     </div>
-    <button class="button-primary add-category-btn">Create this category</button>
+    <button class="button-primary add-category-btn">Create this tag</button>
   </form>
+
 </div>

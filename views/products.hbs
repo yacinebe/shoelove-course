@@ -18,79 +18,21 @@
         Take advantage of signature a footwear technologies including Zoom, Flyknite, and find the
         pairs running shoes that align with your running philosophy.</p>
     </div>
+
+
     <div class="products-grid flexed-item">
+
+      {{#each product}}
+
       <a href="/one-product" class="product-item-wrapper">
         <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
+        <p class="product-name">{{this.name}}</p>
+        <p class="product-cat">{{this.category}}</p>
+        <p class="product-price">{{this.price}}</p>
       </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-      <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-          <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
-          <a href="/one-product" class="product-item-wrapper">
-        <div class="product-img"><img src="medias/img/shoe.png" alt="shoe"></div>
-        <p class="product-name">Sneacker Model Name</p>
-        <p class="product-cat">Product main category</p>
-        <p class="product-price">$120</p>
-      </a>
+
+      {{/each}}
+
     </div>
   </section>
 </div>

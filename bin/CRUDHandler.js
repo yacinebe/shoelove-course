@@ -13,13 +13,24 @@ class CRUDHandler{
         
         this.model.create(newDocument)
             .then (dbres => console.log ("this seems to be working and the result is " + dbres))
-            .catch (err => console.log("this is not working :", err)) 
-        
+            .catch (err => console.log("this is not working :", err))     
     }
 
     getOne(){}
 
-    getAll(){}
+    getAll( clbk ){
+        this.model.find({})
+            .then(res =>  clbk(res))
+            .catch(err => console.log(err))
+    }
+
+    filter(field, value, clbk){
+        const filterObject={}
+        filterObject[field]=value
+        this.model.find(filterObject)
+            .then( res => {console.log(res); clbk(res)})
+            .catch(err => console.log(err))
+    }
 
     updateOne(){}
 

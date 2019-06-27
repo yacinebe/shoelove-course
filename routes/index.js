@@ -4,9 +4,10 @@ const userModel = require ('../models/User.js');
 const bcrypt  = require ("bcrypt");
 const bcryptSalt  = 10;
 const salt =bcrypt.genSaltSync (bcryptSalt);
-//const session    = require("express-session");
-//const mongoose=require("mongoose")
-//const MongoStore = require("connect-mongo")(session);
+const handler=require("../bin/CRUDHandler.js");
+const productModel=require("../models/Product.js")
+const productHandler=new handler(productModel);
+
 require("../config/db_session.js")
 var logInStatus;
 
@@ -15,9 +16,19 @@ router.get(["/", "/home"], (req, res) => {
   res.render("index");
 });
 
-router.get(["/collection", "/kids", "/women", "/men"], (req, res) => {
-  res.render("products", {logInStatus});
+router.get("/collection", (req, res) => {
+  allProducts=productHandler.getAll(product=> res.render("products", {product, logInStatus}))
+  //res.render("products", {logInStatus});
 });
+
+cat=["kids", "women", "men"]
+cat.forEach(c =>{
+  router.get(`/${c}`, (req, res)=>{
+    productsFiltered=productHandler.filter("category", c,  product =>
+    res.render("products", {product, logInStatus})
+    )
+  })
+})
 
 router.get("/signup", (req, res) => {
   res.render("signup");

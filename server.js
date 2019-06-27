@@ -52,15 +52,15 @@ const listener = app.listen(process.env.PORT || 8000, () => {
 //PRIDUCT
 CRUDHandlerProduct= new handler(productModel)
 const testProduct={
-  name: "test name 5",
+  name: "Adidas baby",
   ref : "test reference 2",
-  sizes : "new size",
+  sizes : "32",
   description : "new description",
-  price : 10,
-  category : "women",
+  price : 100,
+  category : "kids",
   id_tags: "5d148b66540e3c1ef816f168"
 }
-//CRUDHandlerProduct.createOne(testProduct)
+CRUDHandlerProduct.createOne(testProduct)
 
 //USER
 CRUDHandlerUser= new handler(userModel)

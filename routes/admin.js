@@ -13,6 +13,10 @@ router.post("/prod-add", (req, res, next) =>{
   productAdded=req.body;
   console.log(productAdded)
   productHandler.createOne(productAdded)
+  const cat=req.body.category
+  console.log("category : ",cat)
+  cat!="" ?  res.redirect(`/${cat}`) : res.redirect(`/collection`)
+  
 
 })
 

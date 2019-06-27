@@ -28,7 +28,7 @@ class CRUDHandler{
         const filterObject={}
         filterObject[field]=value
         this.model.find(filterObject)
-            .then( res => {console.log(res); clbk(res)})
+            .then( res => {clbk(res)})
             .catch(err => console.log(err))
     }
 

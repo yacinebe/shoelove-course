@@ -10,6 +10,7 @@ const tagModel=require("../models/Tag.js")
 const productHandler=new handler(productModel);
 const tagHandler = new handler (tagModel);
 
+
 require("../config/db_session.js")
 var logInStatus;
 
@@ -20,11 +21,11 @@ router.get(["/", "/home"], (req, res) => {
 
 router.get("/collection", (req, res) => {
   
-  tagHandler.getAll ( tag => 
+  tagHandler.getAll ( tagsToDisplay => 
     
     productHandler.getAll(
       
-      product=> res.render("products", {product, tag, logInStatus}))
+      product=> res.render("products", {product, tagsToDisplay, logInStatus}))
       
       );
   
@@ -38,6 +39,24 @@ cat.forEach(c =>{
     )
   })
 })
+
+router.get ("/tag/:tagLabel", (req, res) => {
+
+  tagHandler.getAll ( tagsToDisplay => {
+
+    tagHandler.filter ("label", req.params.tagLabel, tag => 
+
+    {
+        
+      productHandler.filter ("id_tags", tag [0]._id, product => {
+
+        res.render("products",{product, tagsToDisplay, logInStatus})
+      
+      });
+    });
+})
+
+});
 
 router.get("/signup", (req, res) => {
   res.render("signup");

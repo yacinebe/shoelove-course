@@ -1,6 +1,6 @@
 <div class="big-container product-manage-wrapper flexed-item">
   
-  <form method="POST" action="/product-edit" class="add-product-form">
+  <form method="POST" action="/product-edit/{{prod._id}}" class="add-product-form">
     <h3 class="form-title"> Edit Sneaker</h3>
     
     <div class="form-item-wrapper flexed-item">
@@ -37,17 +37,21 @@
         <option value="kids">Kids</option>
       </select>
     </div>
+    
     <!--
     <div class="form-item-wrapper flexed-item">
       <label for="id_tags" class="label">Tags</label>
       <select name="id_tags" id="secondary_category" class="select">
         <option value="">Choose Secondary Category...</option>
-        <option value="">Friendly</option>
-        <option value="">Urban style</option>
-        <option value="">Dope</option>
+         
+        {{#each tag}}
+        <option value={{this.label}}>{{this.label}}</option>
+        {{/each}}
+       
       </select>
     </div>
-    -->
+     -->
+    
     <button class="button-primary add-sneacker-btn">Save changes</button>
   </form>
 </div>

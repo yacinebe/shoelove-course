@@ -86,9 +86,9 @@ const tag3={
 }
 
 const tagHandler= new handler(tagModel)
-tagHandler.createOne(tag1)
-tagHandler.createOne(tag2)
-tagHandler.createOne(tag3)
+//tagHandler.createOne(tag1)
+//tagHandler.createOne(tag2)
+//tagHandler.createOne(tag3)
 
 
 

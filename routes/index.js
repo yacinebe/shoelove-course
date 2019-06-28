@@ -22,12 +22,9 @@ router.get("/collection", (req, res) => {
   let logInStatus = (req.session.currentUser ? true : false);
   //allProducts=productHandler.getAll(product=> res.render("products", {product, logInStatus }))
 
-  tagHandler.getAll ( tagsToDisplay => 
-  
-    productHandler.getAll(
-      
-      product=> res.render("products", {product, tagsToDisplay, logInStatus}))
-      
+  tagHandler.getAll ( tagsToDisplay =>   
+    productHandler.getAll(      
+      product=> res.render("products", {product, tagsToDisplay, logInStatus}))     
       );
 });
   
@@ -36,25 +33,23 @@ router.get("/collection", (req, res) => {
 //});
 
 cat=["kids", "women", "men"]
-cat.forEach(c =>{
-  router.get(`/${c}`, (req, res)=>{
+cat.forEach(c => {
+  router.get(`/${c}`, (req, res) => {
     let logInStatus = (req.session.currentUser ? true : false);
-    productsFiltered=productHandler.filter("category", c,  product =>
-    res.render("products", {product, logInStatus})
-    )
-  })
-})
+    tagHandler.getAll(tagsToDisplay => {
+      productsFiltered = productHandler.filter("category", c, product =>
+        res.render("products", { product, tagsToDisplay, logInStatus })
+      );
+    });
+  });
+ });
+
 
 router.get ("/tag/:tagLabel", (req, res) => {
   let logInStatus = (req.session.currentUser ? true : false);
   tagHandler.getAll ( tagsToDisplay => {
-
-    tagHandler.filter ("label", req.params.tagLabel, tag => 
-
-    {
-        
-      productHandler.filter ("id_tags", tag [0]._id, product => {
-
+    tagHandler.filter ("label", req.params.tagLabel, tag => {       
+      productHandler.filter ("id_tags", tag[0]._id, product => {
         res.render("products",{product, tagsToDisplay, logInStatus})
       
       });

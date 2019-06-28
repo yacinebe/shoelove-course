@@ -15,12 +15,16 @@ class CRUDHandler{
             .catch (err => console.log("this is not working :", err))     
     }
 
-    getOne(data_id, clbk){
-        this.model.findOne
-        (data_id)
+    getOne(data, clbk){
+        this.model.findOne(data)
             .then(res => clbk(res))
             .catch(err => console.log(err))
+    }
 
+    getOneById(id, clbk){
+        this.model.findById(id)
+            .then(res=> clbk(res))
+            .catch(err =>console.log(err))
     }
 
     getAll( clbk ){
@@ -38,17 +42,16 @@ class CRUDHandler{
     }
 
     updateOne(filterObject, data, clbk){
-
-        console.log( "data ---", data)
-        console.log("filterObject ---", filterObject)
-        this.model.findByIdAndUpdate(filterObject, data)
-            .then(res => {console.log(res); clbk(res)})
+        console.log("filterobject ---", filterObject)
+        console.log("data -----", data)
+        this.model.findOneAndUpdate(filterObject, data)
+            .then(dbres => {clbk(dbres)})
             .catch(err => console.log(err))
     }
 
 
-    deleteOne(data, clbk){
-        this.model.findByIdandRemove(data.id)
+    deleteOne(filterObject, clbk){
+        this.model.findOneAndRemove(filterObject)
             .then(res => {clbk(res)})
             .catch(err => console.log(err))
     }

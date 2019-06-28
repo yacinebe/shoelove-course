@@ -13,7 +13,6 @@ router.get("/prod-add", ensureAuthenticated, (req, res) => {
 });
 
 router.post("/prod-add", ensureAuthenticated, (req, res, next) =>{
-  
   let tagId;
   tagHandler.filter ("label", req.body.tag, tag => {
   productAdded=req.body;
@@ -32,28 +31,27 @@ router.get("/prod-manage", ensureAuthenticated, (req, res) => {
   productHandler.getAll(products=> res.render("products_manage", {products, logInStatus}))
 });
 
-router.get("/product-edit", ensureAuthenticated, (req, res, next) => { 
-  productHandler.getOne( req.body.ref, prod =>  res.render("product_edit", {prod}) )
+router.get("/product-edit/:id_passed", ensureAuthenticated, (req, res, next) => { 
+  const id=req.params.id_passed
+  console.log(id)
+  productHandler.getOneById(id, prod =>  {res.render("product_edit", {prod}); console.log("prod -----" ,prod)} )
   ;
 });
 
-router.post("/product-edit", (req, res, next )=>{
-  let logInStatus = (req.session.currentUser ? true : false); 
-  console.log("req.body --", req.body)
-  filterObject={ref : req.body.ref}
-  productHandler.updateOne(filterObject, req.body, productEdited=> res.render("products_manage", {productEdited, logInStatus}))
+router.post("/product-edit/:id_passed", (req, res )=>{
+  filterObject={_id : req.params.id_passed}
+  data=req.body
+  data._id=req.params.id_passed
+  productHandler.updateOne(filterObject, data, () => res.redirect("/prod-manage"))
 })
 
 
-router.get("/product-delete", ensureAuthenticated, (req, res, next) => {
-  res.render("products_manage");
+router.get("/product-delete/:id_passed", ensureAuthenticated, (req, res, next) => {
+  filterObject={_id : req.params.id_passed}
+  productHandler.deleteOne(filterObject, ()=> res.redirect("/prod-manage"))
 });
 
 
-router.post("/product-delete", ensureAuthenticated, (req, res, next) => {
-  let logInStatus = (req.session.currentUser ? true : false);
-  productHandler.deleteOne(req.body, products=> res.render("products_manage", {products, logInStatus}))
-});
 
 //router.get("/tag-add", ensureAuthenticated, (req, res)=>{})
 

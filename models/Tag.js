@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 tagSchema = new Schema ({
 
-    label: {type: String, enum: ["coolandtrendy", "vintage", "converse", "athletic"]}
+    label: {type: String, enum: ["coolandtrendy", "vintage", "converse", "athletic"], unique:true}
 
 });
 

@@ -16,7 +16,8 @@ class CRUDHandler{
     }
 
     getOne(data_id, clbk){
-        this.model.findOne(data_id)
+        this.model.findOne
+        (data_id)
             .then(res => clbk(res))
             .catch(err => console.log(err))
 

@@ -6,7 +6,11 @@ const bcryptSalt  = 10;
 const salt =bcrypt.genSaltSync (bcryptSalt);
 const handler=require("../bin/CRUDHandler.js");
 const productModel=require("../models/Product.js")
+const tagModel=require("../models/Tag.js")
 const productHandler=new handler(productModel);
+const tagHandler = new handler (tagModel);
+
+
 require("../config/db_session.js")
 
 
@@ -16,8 +20,20 @@ router.get(["/", "/home"], (req, res) => {
 
 router.get("/collection", (req, res) => {
   let logInStatus = (req.session.currentUser ? true : false);
-  allProducts=productHandler.getAll(product=> res.render("products", {product, logInStatus }))
+  //allProducts=productHandler.getAll(product=> res.render("products", {product, logInStatus }))
+
+  tagHandler.getAll ( tagsToDisplay => 
+  
+    productHandler.getAll(
+      
+      product=> res.render("products", {product, tagsToDisplay, logInStatus}))
+      
+      );
 });
+  
+
+
+//});
 
 cat=["kids", "women", "men"]
 cat.forEach(c =>{
@@ -28,6 +44,24 @@ cat.forEach(c =>{
     )
   })
 })
+
+router.get ("/tag/:tagLabel", (req, res) => {
+  let logInStatus = (req.session.currentUser ? true : false);
+  tagHandler.getAll ( tagsToDisplay => {
+
+    tagHandler.filter ("label", req.params.tagLabel, tag => 
+
+    {
+        
+      productHandler.filter ("id_tags", tag [0]._id, product => {
+
+        res.render("products",{product, tagsToDisplay, logInStatus})
+      
+      });
+    });
+})
+
+});
 
 router.get("/signup", (req, res) => {
   res.render("signup");
@@ -46,6 +80,7 @@ router.post("/signup", (req, res) => {
       console.log ("I am dealing with a new user");
       const hashpwd=bcrypt.hashSync (password, salt);
       userObject = {firstname, lastname, email, password:hashpwd};
+      //console.log (userObject);
       userModel.create (userObject)
         .then ( () => {res.redirect ('/'); console.log ("Account created")})
         .catch (err=> console.log ("sign up did not work"))
@@ -61,6 +96,7 @@ router.get("/login", (req, res) => {
 
 router.post("/login", (req, res, next) =>{
   const { firstname, lastname, email, password} = req.body;
+  //console.log(req.body)
   userModel.findOne({email})
     .then( user =>{
       if (!user){

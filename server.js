@@ -5,6 +5,7 @@ require("./config/db_session.js")
 
 const productModel=require("./models/Product.js")
 const userModel=require("./models/User.js")
+const tagModel= require("./models/Tag.js")
 const handler=require("./bin/CRUDHandler.js")
 
 const express = require("express");
@@ -14,6 +15,7 @@ const app = express();
 const session    = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const mongoose=require("mongoose")
+
 
 
 app.locals.site_url = process.env.SITE_URL;
@@ -72,6 +74,22 @@ const testUser={
 }
 //CRUDHandlerUser.createOne(testUser)
 
+//TAG
+const tag1={
+  label:"converse",
+}
+const tag2={
+  label: "athletic",
+}
+const tag3={
+  label: "vintage"
+}
+
+const tagHandler= new handler(tagModel)
+tagHandler.createOne(tag1)
+tagHandler.createOne(tag2)
+tagHandler.createOne(tag3)
+
 
 
 
@@ -92,9 +110,8 @@ userModel.create ({
 
 const tagModel = require ("./models/Tag.js");
 
-tagModel.create ({
-    label: "converse"
-})
+
+tagModel.create(tag2)
 .then (dbres => console.log ("this seems to be working and the result is " + dbres))
 .catch (err => "this is not working") 
 

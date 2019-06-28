@@ -51,7 +51,6 @@ router.get ("/tag/:tagLabel", (req, res) => {
     tagHandler.filter ("label", req.params.tagLabel, tag => {       
       productHandler.filter ("id_tags", tag[0]._id, product => {
         res.render("products",{product, tagsToDisplay, logInStatus})
-      
       });
     });
 })
